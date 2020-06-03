@@ -22,9 +22,9 @@ const UserType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
-    user: {
+    user:    //the field for when we make queries with GraphiQL
       type: UserType, // the root query asks for the above defined UserType
-      args: { id: { type: GraphQLString } },
+      args: { id: { type: GraphQLString } }, //the arg we specify for when we make queries with GraphiQL
       resolve(parentValue, args) {
         //grabs the data from the DB
         return _.find(users, { id: args.id }); // args.id will be provided to the query when the query is made
