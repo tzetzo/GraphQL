@@ -7,7 +7,8 @@ const {
   GraphQLString,
   GraphQLInt,
   GraphQLSchema,
-  GraphQLList
+  GraphQLList,
+  GraphQLNonNull
 } = graphql;
 
 const CompanyType = new GraphQLObjectType({
@@ -81,12 +82,13 @@ const mutation = new GraphQLObjectType({
       // adds user to the users collection
       type: UserType, //returned type from resolve() --> not necessarily the same as what we work on
       args: {
-        firstName: { type: GraphQLString },
-        age: { type: GraphQLInt },
+        firstName: { type: new GraphQLNonNull(GraphQLString) }, //required arg
+        age: { type: new GraphQLNonNull(GraphQLInt) }, //required arg
         companyId: { type: GraphQLString }
       },
-      resolve() {
-        
+      resolve(parentValue, args) {
+        return axios.post('http://localhost:3000/users', {...args})
+          .then(res => res.data)
       }
     }
   }
@@ -94,5 +96,6 @@ const mutation = new GraphQLObjectType({
 
 module.exports = new GraphQLSchema({
   //GraphQLSchema Instance exported for use by other parts in our app
-  query: RootQuery
+  query: RootQuery,
+  mutation   //add the mutation Root Type to the GraphQL Schema --> appears in GraphiQL Docs
 });
