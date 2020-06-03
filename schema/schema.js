@@ -20,7 +20,7 @@ const CompanyType = new GraphQLObjectType({
     users: {
       type: new GraphQLList(UserType), // tells GraphQL multiple users will be associated with the company
       resolve(parentValue, args) {
-        return axios
+        return axios //as alternative we can directly query a MongoDB with User.findById(args.id) etc.
           .get(`http://localhost:3000/companies/${parentValue.id}/users`)
           .then(res => res.data);
       }
