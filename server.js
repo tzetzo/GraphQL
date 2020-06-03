@@ -15,6 +15,6 @@ app.use(
   })
 );
 
-app.listen(4000, () => {
-  console.log("Listening");
+app.listen(4000, () => {  // "localhost:4000/graphql" will show the GraphiQL tool 
+  console.log("Listening on port 4000");
 });
