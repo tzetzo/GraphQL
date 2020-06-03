@@ -74,6 +74,24 @@ const RootQuery = new GraphQLObjectType({
   }
 });
 
+const mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    addUser: {
+      // adds user to the users collection
+      type: UserType, //returned type from resolve() --> not necessarily the same as what we work on
+      args: {
+        firstName: { type: GraphQLString },
+        age: { type: GraphQLInt },
+        companyId: { type: GraphQLString }
+      },
+      resolve() {
+        
+      }
+    }
+  }
+});
+
 module.exports = new GraphQLSchema({
   //GraphQLSchema Instance exported for use by other parts in our app
   query: RootQuery
